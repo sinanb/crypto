@@ -37,11 +37,11 @@ def crypt_buffer(aes_obj, operation, buffer):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process AES Crypto Operations')
-    parser.add_argument("--operation", help= "Operation Type encryption or decryption")
-    parser.add_argument("--mode", help="Aes mode, e.g. CTR, CBC etc..")
-    parser.add_argument("--key", help= "Key Value, could be 128/192/256 bits")
-    parser.add_argument("--iv", help= "IV Value, 16 bytes, not mandatory e.g. ECB operations")
-    parser.add_argument("--buffer", help="Buffer string, expected in hex format")
+    parser.add_argument("--operation", help="Operation Type", choices=["decrypt","encrypt"], required=True)
+    parser.add_argument("--mode", help="Aes Mode", choices=["ecb","cbc","ctr"], default="ecb")
+    parser.add_argument("--key", help= "Key Value, could be 128/192/256 bits", required=True)
+    parser.add_argument("--iv", help= "IV Value, 16 bytes, not mandatory e.g. ECB and CTR operations")
+    parser.add_argument("--buffer", help="Buffer string, expected in hex format", required=True)
     args = parser.parse_args()
 
     aes_obj = create_aes_object(args.mode, args.key, args.iv)
